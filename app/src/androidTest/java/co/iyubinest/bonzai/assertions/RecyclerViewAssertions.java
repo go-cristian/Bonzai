@@ -24,17 +24,19 @@ import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
 public class RecyclerViewAssertions implements ViewAssertion {
+
   private final int expectedCount;
 
   public RecyclerViewAssertions(int expectedCount) {
     this.expectedCount = expectedCount;
   }
 
-  @Override public void check(View view, NoMatchingViewException noViewFoundException) {
+  @Override
+  public void check(View view, NoMatchingViewException noViewFoundException
+  ) {
     if (noViewFoundException != null) {
       throw noViewFoundException;
     }
-
     RecyclerView recyclerView = (RecyclerView) view;
     RecyclerView.Adapter adapter = recyclerView.getAdapter();
     assertThat(adapter.getItemCount(), is(expectedCount));

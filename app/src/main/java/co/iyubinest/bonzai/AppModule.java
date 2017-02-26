@@ -22,14 +22,18 @@ import dagger.Provides;
 import javax.inject.Singleton;
 import retrofit2.Retrofit;
 
-@Module public class AppModule {
+@Module
+public class AppModule {
+
   private final App app;
 
   public AppModule(App app) {
     this.app = app;
   }
 
-  @Provides @Singleton public Retrofit retrofit() {
+  @Provides
+  @Singleton
+  public Retrofit retrofit() {
     return AppRetrofit.build(FlickrPhotos.URL);
   }
 }

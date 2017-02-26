@@ -28,14 +28,15 @@ public class FlickrPhotos implements Photos {
   public static final String URL = "https://api.flickr.com/";
   private static final String API_KEY = "e4a73905b6b4a04be6a5c977d0005936";
   private static final String ENDPOINT_FORMAT =
-      "services/rest/?method=flickr.photos.search&format=json&nojsoncallback=1";
+    "services/rest/?method=flickr.photos.search&format=json&nojsoncallback=1";
   private FlickrService service;
 
   public FlickrPhotos(Retrofit retrofit) {
     service = retrofit.create(FlickrService.class);
   }
 
-  @Override public Flowable<List<Photo>> queryBy(String tags) {
+  @Override
+  public Flowable<List<Photo>> queryBy(String tags) {
     return service.pictures(API_KEY, tags).flatMap(this::map);
   }
 
@@ -54,19 +55,24 @@ public class FlickrPhotos implements Photos {
   }
 
   private interface FlickrService {
-    @GET(ENDPOINT_FORMAT) Flowable<FlickrResponse> pictures(@Query("api_key") String apiKey,
-        @Query("tags") String tag);
+
+    @GET(ENDPOINT_FORMAT)
+    Flowable<FlickrResponse> pictures(@Query("api_key") String apiKey, @Query("tags") String tag
+    );
   }
 
   private static class FlickrResponse {
+
     FlickrPhotosResponse photos;
   }
 
   private static class FlickrPhotosResponse {
+
     List<FlickrPictureResponse> photo;
   }
 
   private static class FlickrPictureResponse {
+
     private static final String URL_FORMAT = "https://farm%s.staticflickr.com/%s/%s_%s_m.jpg";
     String farm;
     String server;

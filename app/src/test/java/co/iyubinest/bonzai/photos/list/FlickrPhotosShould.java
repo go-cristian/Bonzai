@@ -41,32 +41,8 @@ public class FlickrPhotosShould {
   private TestSubscriber subscriber = new TestSubscriber();
   private MockResponse response = new MockResponse().setBody(fromFile("page.json"));
   private Photo firstPhoto =
-      new Photo("https://farm1.staticflickr.com/770/33116416105_0563b72b0e_m.jpg");
+    new Photo("https://farm1.staticflickr.com/770/33116416105_0563b72b0e_m.jpg");
   private String tag = "panda";
-
-  @Before public void setup() throws Exception {
-    server = new MockWebServer();
-    retrofit = AppRetrofit.build(server.url("/").toString());
-    photos = new FlickrPhotos(retrofit);
-  }
-
-  @After public void tearDown() throws Exception {
-    server.shutdown();
-  }
-
-  @Test public void failOnError() throws Exception {
-    server.enqueue(error);
-    photos.queryBy(tag).subscribe(subscriber);
-    subscriber.assertError(Exception.class);
-  }
-
-  @Test public void success() throws Exception {
-    server.enqueue(response);
-    photos.queryBy(tag).subscribe(subscriber);
-    List<Photo> events = (List<Photo>) ((ArrayList) subscriber.getEvents().get(0)).get(0);
-    assertThat(events.size(), is(100));
-    assertThat(events.get(0), is(firstPhoto));
-  }
 
   private static String fromFile(String name) {
     try {
@@ -82,5 +58,33 @@ public class FlickrPhotosShould {
     } catch (Exception ignored) {
       throw new IllegalArgumentException("File not found");
     }
+  }
+
+  @Before
+  public void setup() throws Exception {
+    server = new MockWebServer();
+    retrofit = AppRetrofit.build(server.url("/").toString());
+    photos = new FlickrPhotos(retrofit);
+  }
+
+  @After
+  public void tearDown() throws Exception {
+    server.shutdown();
+  }
+
+  @Test
+  public void failOnError() throws Exception {
+    server.enqueue(error);
+    photos.queryBy(tag).subscribe(subscriber);
+    subscriber.assertError(Exception.class);
+  }
+
+  @Test
+  public void success() throws Exception {
+    server.enqueue(response);
+    photos.queryBy(tag).subscribe(subscriber);
+    List<Photo> events = (List<Photo>) ((ArrayList) subscriber.getEvents().get(0)).get(0);
+    assertThat(events.size(), is(100));
+    assertThat(events.get(0), is(firstPhoto));
   }
 }

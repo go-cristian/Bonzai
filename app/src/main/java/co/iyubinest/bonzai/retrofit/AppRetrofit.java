@@ -22,13 +22,14 @@ import retrofit2.Retrofit;
 import retrofit2.converter.moshi.MoshiConverterFactory;
 
 public class AppRetrofit {
+
   public static Retrofit build(String url) {
     OkHttpClient client =
-        new OkHttpClient.Builder().addNetworkInterceptor(new StethoInterceptor()).build();
+      new OkHttpClient.Builder().addNetworkInterceptor(new StethoInterceptor()).build();
     return new Retrofit.Builder().baseUrl(url)
-        .addConverterFactory(MoshiConverterFactory.create())
-        .client(client)
-        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-        .build();
+      .addConverterFactory(MoshiConverterFactory.create())
+      .client(client)
+      .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+      .build();
   }
 }

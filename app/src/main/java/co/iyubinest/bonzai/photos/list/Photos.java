@@ -19,5 +19,6 @@ import io.reactivex.Flowable;
 import java.util.List;
 
 public interface Photos {
+
   Flowable<List<Photo>> queryBy(String tags);
 }

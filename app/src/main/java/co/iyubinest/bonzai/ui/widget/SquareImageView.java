@@ -21,15 +21,19 @@ import android.util.AttributeSet;
 import android.widget.ImageView;
 
 public class SquareImageView extends ImageView {
+
   public SquareImageView(Context context) {
     this(context, null);
   }
 
-  public SquareImageView(Context context, @Nullable AttributeSet attrs) {
+  public SquareImageView(Context context, @Nullable AttributeSet attrs
+  ) {
     super(context, attrs);
   }
 
-  @Override protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+  @Override
+  protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec
+  ) {
     super.onMeasure(widthMeasureSpec, widthMeasureSpec);
   }
 }

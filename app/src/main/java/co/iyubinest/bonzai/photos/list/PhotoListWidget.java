@@ -42,7 +42,8 @@ public class PhotoListWidget extends RecyclerView {
     this(context, null);
   }
 
-  public PhotoListWidget(Context context, @Nullable AttributeSet attrs) {
+  public PhotoListWidget(Context context, @Nullable AttributeSet attrs
+  ) {
     super(context, attrs);
     LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
     setLayoutManager(layoutManager);
@@ -63,12 +64,7 @@ public class PhotoListWidget extends RecyclerView {
 
   public static class PhotoListAdapter extends RecyclerView.Adapter<PhotoHolder> {
 
-    interface OnPhotoSelected {
-      void selectedPhoto(Photo photo, View view);
-    }
-
     private List<Photo> photoList = new ArrayList<>();
-
     private OnPhotoSelected listener;
 
     public void add(List<Photo> photoList) {
@@ -77,37 +73,45 @@ public class PhotoListWidget extends RecyclerView {
       notifyDataSetChanged();
     }
 
-    @Override public PhotoHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    @Override
+    public PhotoHolder onCreateViewHolder(ViewGroup parent, int viewType
+    ) {
       View view =
-          LayoutInflater.from(parent.getContext()).inflate(R.layout.photo_list_item, parent, false);
+        LayoutInflater.from(parent.getContext()).inflate(R.layout.photo_list_item, parent, false);
       return new PhotoHolder(view);
     }
 
-    @Override public void onBindViewHolder(PhotoHolder holder, int position) {
+    @Override
+    public void onBindViewHolder(PhotoHolder holder, int position
+    ) {
       holder.load(photoList.get(position));
       holder.setListener((pos, view) -> {
-        if (listener != null) listener.selectedPhoto(photoList.get(pos), view);
+        if (listener != null) {
+          listener.selectedPhoto(photoList.get(pos), view);
+        }
       });
     }
 
-    @Override public int getItemCount() {
+    @Override
+    public int getItemCount() {
       return photoList.size();
     }
 
     public void setListener(OnPhotoSelected listener) {
       this.listener = listener;
     }
+
+    interface OnPhotoSelected {
+
+      void selectedPhoto(Photo photo, View view
+      );
+    }
   }
 
   static class PhotoHolder extends ViewHolder {
 
-    interface OnSelection {
-
-      void positionSelected(int position, View view);
-    }
-
-    @BindView(R.id.photo_list_item_image) ImageView imageView;
-
+    @BindView(R.id.photo_list_item_image)
+    ImageView imageView;
     private OnSelection listener;
 
     public PhotoHolder(View view) {
@@ -119,12 +123,21 @@ public class PhotoListWidget extends RecyclerView {
       Picasso.with(itemView.getContext()).load(photo.url()).fit().centerCrop().into(imageView);
     }
 
-    @OnClick(R.id.photo_list_item_image) public void selected() {
-      if (listener != null) listener.positionSelected(getAdapterPosition(), imageView);
+    @OnClick(R.id.photo_list_item_image)
+    public void selected() {
+      if (listener != null) {
+        listener.positionSelected(getAdapterPosition(), imageView);
+      }
     }
 
     public void setListener(OnSelection listener) {
       this.listener = listener;
+    }
+
+    interface OnSelection {
+
+      void positionSelected(int position, View view
+      );
     }
   }
 }

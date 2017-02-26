@@ -34,25 +34,34 @@ import javax.inject.Inject;
 public class PhotoListActivity extends BaseActivity {
 
   private static final String DEFAULT_TAG = "panda";
-  @Inject Photos photos;
-  @BindView(android.R.id.content) View contentView;
-  @BindView(R.id.toolbar) Toolbar toolbar;
-  @BindView(R.id.retry_button) View retryView;
-  @BindView(R.id.loading) View loadingView;
-  @BindView(R.id.photo_list_content) PhotoListWidget photosView;
+  @Inject
+  Photos photos;
+  @BindView(android.R.id.content)
+  View contentView;
+  @BindView(R.id.toolbar)
+  Toolbar toolbar;
+  @BindView(R.id.retry_button)
+  View retryView;
+  @BindView(R.id.loading)
+  View loadingView;
+  @BindView(R.id.photo_list_content)
+  PhotoListWidget photosView;
   private String tag;
   SearchView.OnQueryTextListener listener = new SearchView.OnQueryTextListener() {
-    @Override public boolean onQueryTextSubmit(String query) {
+    @Override
+    public boolean onQueryTextSubmit(String query) {
       return false;
     }
 
-    @Override public boolean onQueryTextChange(String tag) {
+    @Override
+    public boolean onQueryTextChange(String tag) {
       queryBy(tag);
       return false;
     }
   };
 
-  @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
+  @Override
+  protected void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.photo_list_activity);
     ButterKnife.bind(this);
@@ -62,7 +71,21 @@ public class PhotoListActivity extends BaseActivity {
     photosView.onPhotoSelected(this::showDetail);
   }
 
-  @Override public boolean onCreateOptionsMenu(Menu menu) {
+  private void queryBy(String tag) {
+    this.tag = tag;
+    show(loadingView);
+    photos.queryBy(tag).subscribe(this::showPhotos, this::showError);
+  }
+
+  private void show(View view) {
+    retryView.setVisibility(View.INVISIBLE);
+    photosView.setVisibility(View.INVISIBLE);
+    loadingView.setVisibility(View.INVISIBLE);
+    view.setVisibility(View.VISIBLE);
+  }
+
+  @Override
+  public boolean onCreateOptionsMenu(Menu menu) {
     getMenuInflater().inflate(R.menu.photo_list_search_menu, menu);
     MenuItem searchMenuItem = menu.findItem(R.id.action_search);
     SearchView mSearchView = (SearchView) searchMenuItem.getActionView();
@@ -70,14 +93,9 @@ public class PhotoListActivity extends BaseActivity {
     return true;
   }
 
-  @OnClick(R.id.retry_button) public void retry() {
+  @OnClick(R.id.retry_button)
+  public void retry() {
     queryBy(tag);
-  }
-
-  private void queryBy(String tag) {
-    this.tag = tag;
-    show(loadingView);
-    photos.queryBy(tag).subscribe(this::showPhotos, this::showError);
   }
 
   private void showPhotos(List<Photo> photoList) {
@@ -90,14 +108,8 @@ public class PhotoListActivity extends BaseActivity {
     Snackbar.make(contentView, R.string.photo_list_error, Snackbar.LENGTH_LONG).show();
   }
 
-  private void show(View view) {
-    retryView.setVisibility(View.INVISIBLE);
-    photosView.setVisibility(View.INVISIBLE);
-    loadingView.setVisibility(View.INVISIBLE);
-    view.setVisibility(View.VISIBLE);
-  }
-
-  private void showDetail(Photo photo, View view) {
+  private void showDetail(Photo photo, View view
+  ) {
     startActivity(PhotoDetailActivity.getIntent(this, photo, view));
   }
 }

@@ -19,48 +19,52 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 class Photo implements Parcelable {
+
+  public static final Parcelable.Creator<Photo> CREATOR = new Parcelable.Creator<Photo>() {
+    @Override
+    public Photo createFromParcel(Parcel source) {
+      return new Photo(source);
+    }
+
+    @Override
+    public Photo[] newArray(int size) {
+      return new Photo[size];
+    }
+  };
   private final String url;
 
   public Photo(String url) {
     this.url = url;
   }
 
-  public String url() {
-    return url;
-  }
-
-  @Override public boolean equals(Object o) {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
-
-    Photo photo = (Photo) o;
-
-    return url != null ? url.equals(photo.url) : photo.url == null;
-  }
-
-  @Override public int hashCode() {
-    return url != null ? url.hashCode() : 0;
-  }
-
-  @Override public int describeContents() {
-    return 0;
-  }
-
-  @Override public void writeToParcel(Parcel dest, int flags) {
-    dest.writeString(this.url);
-  }
-
   protected Photo(Parcel in) {
     this.url = in.readString();
   }
 
-  public static final Parcelable.Creator<Photo> CREATOR = new Parcelable.Creator<Photo>() {
-    @Override public Photo createFromParcel(Parcel source) {
-      return new Photo(source);
-    }
+  public String url() {
+    return url;
+  }
 
-    @Override public Photo[] newArray(int size) {
-      return new Photo[size];
-    }
-  };
+  @Override
+  public int hashCode() {
+    return url != null ? url.hashCode() : 0;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    Photo photo = (Photo) o;
+    return url != null ? url.equals(photo.url) : photo.url == null;
+  }
+
+  @Override
+  public int describeContents() {
+    return 0;
+  }
+
+  @Override
+  public void writeToParcel(Parcel dest, int flags) {
+    dest.writeString(this.url);
+  }
 }

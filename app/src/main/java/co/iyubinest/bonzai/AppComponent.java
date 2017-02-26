@@ -20,6 +20,9 @@ import co.iyubinest.bonzai.photos.list.PhotoListModule;
 import dagger.Component;
 import javax.inject.Singleton;
 
-@Singleton @Component(modules = AppModule.class) public interface AppComponent {
+@Singleton
+@Component(modules = AppModule.class)
+public interface AppComponent {
+
   PhotoListComponent photoListComponent(PhotoListModule module);
 }

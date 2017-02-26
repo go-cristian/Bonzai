@@ -29,20 +29,13 @@ import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.CoreMatchers.not;
 import static org.mockito.ArgumentMatchers.anyString;
 
-@RunWith(AndroidJUnit4.class) @MediumTest public class PhotoListActivityShould {
-
-  @Rule public DaggerRule daggerRule = new DaggerRule();
-
-  @Rule public ActivityTestRule<PhotoListActivity> rule =
-      new ActivityTestRule<>(PhotoListActivity.class, false, false);
-
-  @Mock Photos photos;
+@RunWith(AndroidJUnit4.class)
+@MediumTest
+public class PhotoListActivityShould {
 
   private final static String url =
-      "https://developer.android.com/images/brand/Android_Robot_100.png";
+    "https://developer.android.com/images/brand/Android_Robot_100.png";
   private final static List<Photo> PHOTOS_PAGE_0 = new ArrayList<>();
-
-  private Exception exception = new Exception();
 
   static {
     for (int i = 0; i < 100; i++) {
@@ -50,7 +43,17 @@ import static org.mockito.ArgumentMatchers.anyString;
     }
   }
 
-  @Test public void showErrorOnPhotoFailure() throws Exception {
+  @Rule
+  public DaggerRule daggerRule = new DaggerRule();
+  @Rule
+  public ActivityTestRule<PhotoListActivity> rule =
+    new ActivityTestRule<>(PhotoListActivity.class, false, false);
+  @Mock
+  Photos photos;
+  private Exception exception = new Exception();
+
+  @Test
+  public void showErrorOnPhotoFailure() throws Exception {
     Mockito.when(photos.queryBy(anyString())).thenReturn(Flowable.error(exception));
     rule.launchActivity(new Intent());
     onView(withText(R.string.photo_list_error)).check(matches(isDisplayed()));
@@ -58,7 +61,8 @@ import static org.mockito.ArgumentMatchers.anyString;
     onView(withId(R.id.retry_button)).check(matches(isDisplayed()));
   }
 
-  @Test public void showListOnPhotoSuccess() throws Exception {
+  @Test
+  public void showListOnPhotoSuccess() throws Exception {
     Mockito.when(photos.queryBy(anyString())).thenReturn(Flowable.just(PHOTOS_PAGE_0));
     rule.launchActivity(new Intent());
     onView(withId(R.id.photo_list_content)).check(matches(isDisplayed()));
@@ -66,7 +70,8 @@ import static org.mockito.ArgumentMatchers.anyString;
     onView(withId(R.id.retry_button)).check(matches(not(isDisplayed())));
   }
 
-  @Test public void showListOnSearch() throws Exception {
+  @Test
+  public void showListOnSearch() throws Exception {
     Mockito.when(photos.queryBy(anyString())).thenReturn(Flowable.just(PHOTOS_PAGE_0));
     rule.launchActivity(new Intent());
     onView(withId(R.id.action_search)).perform(click());

@@ -20,9 +20,11 @@ import android.support.annotation.VisibleForTesting;
 import com.facebook.stetho.Stetho;
 
 public class App extends Application {
+
   private AppComponent component;
 
-  @Override public void onCreate() {
+  @Override
+  public void onCreate() {
     super.onCreate();
     Stetho.initializeWithDefaults(this);
     component = DaggerAppComponent.builder().appModule(new AppModule(this)).build();
@@ -32,7 +34,8 @@ public class App extends Application {
     return component;
   }
 
-  @VisibleForTesting public void setComponent(AppComponent component) {
+  @VisibleForTesting
+  public void setComponent(AppComponent component) {
     this.component = component;
   }
 }

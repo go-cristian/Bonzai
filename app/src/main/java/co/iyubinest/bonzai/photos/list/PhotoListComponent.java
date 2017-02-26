@@ -17,6 +17,8 @@ package co.iyubinest.bonzai.photos.list;
 
 import dagger.Subcomponent;
 
-@Subcomponent(modules = PhotoListModule.class) public interface PhotoListComponent {
+@Subcomponent(modules = PhotoListModule.class)
+public interface PhotoListComponent {
+
   void inject(PhotoListActivity activity);
 }

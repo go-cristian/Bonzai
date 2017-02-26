@@ -21,15 +21,17 @@ import io.reactivex.schedulers.Schedulers;
 import java.util.List;
 
 public class AndroidFlickrPhotos implements Photos {
+
   private final FlickrPhotos photos;
 
   public AndroidFlickrPhotos(FlickrPhotos photos) {
     this.photos = photos;
   }
 
-  @Override public Flowable<List<Photo>> queryBy(String tags) {
+  @Override
+  public Flowable<List<Photo>> queryBy(String tags) {
     return photos.queryBy(tags)
-        .subscribeOn(Schedulers.io())
-        .observeOn(AndroidSchedulers.mainThread());
+      .subscribeOn(Schedulers.io())
+      .observeOn(AndroidSchedulers.mainThread());
   }
 }

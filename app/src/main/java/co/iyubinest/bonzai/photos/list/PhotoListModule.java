@@ -19,9 +19,11 @@ import dagger.Module;
 import dagger.Provides;
 import retrofit2.Retrofit;
 
-@Module public class PhotoListModule {
+@Module
+public class PhotoListModule {
 
-  @Provides public Photos photo(Retrofit retrofit) {
+  @Provides
+  public Photos photo(Retrofit retrofit) {
     return new AndroidFlickrPhotos(new FlickrPhotos(retrofit));
   }
 }

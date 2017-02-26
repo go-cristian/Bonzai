@@ -19,11 +19,11 @@ import android.support.v7.app.AppCompatActivity;
 
 public class BaseActivity extends AppCompatActivity {
 
-  public App app() {
-    return (App) getApplication();
-  }
-
   public AppComponent appComponent() {
     return app().component();
+  }
+
+  public App app() {
+    return (App) getApplication();
   }
 }
