@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="photo_detail_success">Image saved</string>
+  <string name="photo_detail_error">Can\'t load the image</string>
+</resources>

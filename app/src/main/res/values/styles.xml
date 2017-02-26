@@ -1,4 +1,4 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
 
   <!-- Base application theme. -->
   <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
@@ -9,8 +9,13 @@
   </style>
 
   <style name="AppTheme.Toolbar">
+    <item name="android:minHeight">?attr/actionBarSize</item>
+    <item name="android:maxHeight">?attr/actionBarSize</item>
     <item name="android:background">?attr/colorPrimary</item>
-    <item name="android:elevation" tools:targetApi="lollipop">20dp</item>
+  </style>
+
+  <style name="AppTheme.Toolbar.Transparent" parent="AppTheme.Toolbar">
+    <item name="android:background">@color/transparent</item>
   </style>
 
   <style name="AppTheme.Toolbar.Image">

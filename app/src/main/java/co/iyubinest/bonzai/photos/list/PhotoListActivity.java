@@ -40,7 +40,7 @@ public class PhotoListActivity extends BaseActivity {
   @BindView(R.id.retry_button) View retryView;
   @BindView(R.id.loading) View loadingView;
   @BindView(R.id.photo_list_content) PhotoListWidget photosView;
-
+  private String tag;
   SearchView.OnQueryTextListener listener = new SearchView.OnQueryTextListener() {
     @Override public boolean onQueryTextSubmit(String query) {
       return false;
@@ -51,7 +51,6 @@ public class PhotoListActivity extends BaseActivity {
       return false;
     }
   };
-  private String tag;
 
   @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -60,6 +59,7 @@ public class PhotoListActivity extends BaseActivity {
     setSupportActionBar(toolbar);
     appComponent().photoListComponent(new PhotoListModule()).inject(this);
     queryBy(DEFAULT_TAG);
+    photosView.onPhotoSelected(this::showDetail);
   }
 
   @Override public boolean onCreateOptionsMenu(Menu menu) {
@@ -95,5 +95,9 @@ public class PhotoListActivity extends BaseActivity {
     photosView.setVisibility(View.INVISIBLE);
     loadingView.setVisibility(View.INVISIBLE);
     view.setVisibility(View.VISIBLE);
+  }
+
+  private void showDetail(Photo photo, View view) {
+    startActivity(PhotoDetailActivity.getIntent(this, photo, view));
   }
 }

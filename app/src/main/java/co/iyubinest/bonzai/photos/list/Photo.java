@@ -15,7 +15,10 @@
  */
 package co.iyubinest.bonzai.photos.list;
 
-class Photo {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+class Photo implements Parcelable {
   private final String url;
 
   public Photo(String url) {
@@ -38,4 +41,26 @@ class Photo {
   @Override public int hashCode() {
     return url != null ? url.hashCode() : 0;
   }
+
+  @Override public int describeContents() {
+    return 0;
+  }
+
+  @Override public void writeToParcel(Parcel dest, int flags) {
+    dest.writeString(this.url);
+  }
+
+  protected Photo(Parcel in) {
+    this.url = in.readString();
+  }
+
+  public static final Parcelable.Creator<Photo> CREATOR = new Parcelable.Creator<Photo>() {
+    @Override public Photo createFromParcel(Parcel source) {
+      return new Photo(source);
+    }
+
+    @Override public Photo[] newArray(int size) {
+      return new Photo[size];
+    }
+  };
 }
