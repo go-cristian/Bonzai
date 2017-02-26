@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="photo_list_error">there was an error fetching the images, please try again</string>
+
+  <style name="AppTheme.PhotoList"/>
+
+  <style name="AppTheme.PhotoList.List">
+    <item name="android:visibility">invisible</item>
+  </style>
+
+  <style name="AppTheme.PhotoList.Item"/>
+
+  <style name="AppTheme.PhotoList.Item.Image">
+    <item name="android:visibility">visible</item>
+  </style>
+</resources>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                                 xmlns:app="http://schemas.android.com/apk/res-auto"
+                                                 android:layout_width="match_parent"
+                                                 android:layout_height="match_parent"
+  >
+
+  <include layout="@layout/retry"/>
+
+  <include layout="@layout/loading"/>
+
+
+  <android.support.design.widget.AppBarLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    >
+
+    <include
+      android:id="@+id/toolbar"
+      layout="@layout/toolbar"
+      />
+  </android.support.design.widget.AppBarLayout>
+
+  <co.iyubinest.bonzai.photos.list.PhotoListWidget
+    android:id="@+id/photo_list_content"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    style="@style/AppTheme.PhotoList.List"
+    android:scrollbars="none"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    />
+</android.support.design.widget.CoordinatorLayout>

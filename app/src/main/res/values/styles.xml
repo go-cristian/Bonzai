@@ -1,0 +1,24 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+  <!-- Base application theme. -->
+  <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <!-- Customize your theme here. -->
+    <item name="colorPrimary">@color/colorPrimary</item>
+    <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+    <item name="colorAccent">@color/colorAccent</item>
+  </style>
+
+  <style name="AppTheme.Toolbar">
+    <item name="android:background">?attr/colorPrimary</item>
+    <item name="android:elevation" tools:targetApi="lollipop">20dp</item>
+  </style>
+
+  <style name="AppTheme.Toolbar.Image">
+    <item name="android:layout_gravity">center</item>
+    <item name="android:scaleType">fitCenter</item>
+    <item name="android:adjustViewBounds">true</item>
+    <item name="android:src">@drawable/logo</item>
+    <item name="android:padding">15dp</item>
+  </style>
+
+</resources>
