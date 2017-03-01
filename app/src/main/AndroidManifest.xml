@@ -22,7 +22,7 @@
         <category android:name="android.intent.category.LAUNCHER"/>
       </intent-filter>
     </activity>
-    <activity android:name=".photos.list.PhotoDetailActivity"/>
+    <activity android:name=".photos.detail.PhotoDetailActivity"/>
   </application>
 
 </manifest>

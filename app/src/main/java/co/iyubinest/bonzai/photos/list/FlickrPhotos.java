@@ -15,6 +15,7 @@
  */
 package co.iyubinest.bonzai.photos.list;
 
+import co.iyubinest.bonzai.photos.Photo;
 import io.reactivex.Flowable;
 import java.util.ArrayList;
 import java.util.List;
@@ -57,8 +58,7 @@ public class FlickrPhotos implements Photos {
   private interface FlickrService {
 
     @GET(ENDPOINT_FORMAT)
-    Flowable<FlickrResponse> pictures(@Query("api_key") String apiKey, @Query("tags") String tag
-    );
+    Flowable<FlickrResponse> pictures(@Query("api_key") String apiKey, @Query("tags") String tag);
   }
 
   private static class FlickrResponse {

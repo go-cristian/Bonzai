@@ -13,12 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package co.iyubinest.bonzai.photos.list;
+package co.iyubinest.bonzai.photos;
 
 import android.os.Parcel;
 import android.os.Parcelable;
 
-class Photo implements Parcelable {
+public class Photo implements Parcelable {
 
   public static final Parcelable.Creator<Photo> CREATOR = new Parcelable.Creator<Photo>() {
     @Override

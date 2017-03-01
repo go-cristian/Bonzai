@@ -15,6 +15,7 @@
  */
 package co.iyubinest.bonzai.photos.list;
 
+import co.iyubinest.bonzai.photos.Photo;
 import co.iyubinest.bonzai.retrofit.AppRetrofit;
 import io.reactivex.subscribers.TestSubscriber;
 import java.io.BufferedReader;

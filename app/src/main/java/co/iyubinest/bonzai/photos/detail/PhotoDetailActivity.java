@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package co.iyubinest.bonzai.photos.list;
+package co.iyubinest.bonzai.photos.detail;
 
 import android.animation.ObjectAnimator;
 import android.animation.TimeInterpolator;
@@ -21,7 +21,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.Snackbar;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.ViewTreeObserver;
@@ -31,6 +30,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import co.iyubinest.bonzai.BaseActivity;
 import co.iyubinest.bonzai.R;
+import co.iyubinest.bonzai.photos.Photo;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 import java.util.Timer;
@@ -47,12 +47,12 @@ public class PhotoDetailActivity extends BaseActivity {
   private static final TimeInterpolator sDecelerator = new DecelerateInterpolator();
   private static final int ANIM_DURATION = 500;
   private static final String PHOTO_KEY = "entry";
-  static float sAnimatorScale = 1;
+  private static float sAnimatorScale = 1;
   @BindView(R.id.preview_root)
   View rootView;
-  @BindView(R.id.preview_image)
+  @BindView(R.id.photo_detail_image)
   ImageView previewView;
-  @BindView(R.id.toolbar)
+  @BindView(R.id.photo_detail_toolbar)
   Toolbar toolbarView;
   private int originalOrientation;
   private int leftDelta;
@@ -60,8 +60,7 @@ public class PhotoDetailActivity extends BaseActivity {
   private float widthScale;
   private float heightScale;
 
-  public static Intent getIntent(Context context, Photo photo, View view
-  ) {
+  public static Intent getIntent(Context context, Photo photo, View view) {
     int orientation = context.getResources().getConfiguration().orientation;
     Intent intent = new Intent(context, PhotoDetailActivity.class);
     Bundle bundle = new Bundle();

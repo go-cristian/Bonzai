@@ -15,10 +15,22 @@
     android:layout_height="wrap_content"
     >
 
-    <include
-      android:id="@+id/toolbar"
-      layout="@layout/toolbar"
-      />
+    <android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+                                       xmlns:app="http://schemas.android.com/apk/res-auto"
+                                       android:id="@+id/photo_list_toolbar"
+                                       android:layout_width="match_parent"
+                                       android:layout_height="wrap_content"
+                                       app:layout_scrollFlags="scroll|enterAlways"
+                                       style="@style/AppTheme.Toolbar"
+      >
+
+      <ImageView
+        android:id="@+id/ivLogo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/AppTheme.Toolbar.Image"
+        />
+    </android.support.v7.widget.Toolbar>
   </android.support.design.widget.AppBarLayout>
 
   <co.iyubinest.bonzai.photos.list.PhotoListWidget

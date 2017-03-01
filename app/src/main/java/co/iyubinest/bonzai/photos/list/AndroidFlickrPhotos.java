@@ -15,6 +15,7 @@
  */
 package co.iyubinest.bonzai.photos.list;
 
+import co.iyubinest.bonzai.photos.Photo;
 import io.reactivex.Flowable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;

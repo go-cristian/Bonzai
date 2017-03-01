@@ -15,6 +15,7 @@
  */
 package co.iyubinest.bonzai.photos.list;
 
+import co.iyubinest.bonzai.photos.Photo;
 import io.reactivex.Flowable;
 import java.util.List;
 

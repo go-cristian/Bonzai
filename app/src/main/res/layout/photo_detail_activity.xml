@@ -15,14 +15,14 @@
     >
 
     <ImageView
-      android:id="@+id/preview_image"
+      android:id="@+id/photo_detail_image"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
       />
   </FrameLayout>
 
   <android.support.v7.widget.Toolbar
-    android:id="@+id/toolbar"
+    android:id="@+id/photo_detail_toolbar"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     style="@style/AppTheme.Toolbar.Transparent"

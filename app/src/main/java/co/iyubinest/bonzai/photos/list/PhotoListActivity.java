@@ -18,8 +18,10 @@ package co.iyubinest.bonzai.photos.list;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -28,6 +30,8 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import co.iyubinest.bonzai.BaseActivity;
 import co.iyubinest.bonzai.R;
+import co.iyubinest.bonzai.photos.Photo;
+import co.iyubinest.bonzai.photos.detail.PhotoDetailActivity;
 import java.util.List;
 import javax.inject.Inject;
 
@@ -38,25 +42,29 @@ public class PhotoListActivity extends BaseActivity {
   Photos photos;
   @BindView(android.R.id.content)
   View contentView;
-  @BindView(R.id.toolbar)
-  Toolbar toolbar;
+  @BindView(R.id.photo_list_toolbar)
+  Toolbar toolbarView;
   @BindView(R.id.retry_button)
   View retryView;
   @BindView(R.id.loading)
   View loadingView;
   @BindView(R.id.photo_list_content)
   PhotoListWidget photosView;
+  private SearchView searchView;
   private String tag;
-  SearchView.OnQueryTextListener listener = new SearchView.OnQueryTextListener() {
+  private final SearchView.OnQueryTextListener listener = new SearchView.OnQueryTextListener() {
     @Override
     public boolean onQueryTextSubmit(String query) {
-      return false;
+      searchView.clearFocus();
+      return true;
     }
 
     @Override
     public boolean onQueryTextChange(String tag) {
-      queryBy(tag);
-      return false;
+      if (!TextUtils.isEmpty(tag)) {
+        queryBy(tag);
+      }
+      return true;
     }
   };
 
@@ -65,7 +73,7 @@ public class PhotoListActivity extends BaseActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.photo_list_activity);
     ButterKnife.bind(this);
-    setSupportActionBar(toolbar);
+    setSupportActionBar(toolbarView);
     appComponent().photoListComponent(new PhotoListModule()).inject(this);
     queryBy(DEFAULT_TAG);
     photosView.onPhotoSelected(this::showDetail);
@@ -88,8 +96,28 @@ public class PhotoListActivity extends BaseActivity {
   public boolean onCreateOptionsMenu(Menu menu) {
     getMenuInflater().inflate(R.menu.photo_list_search_menu, menu);
     MenuItem searchMenuItem = menu.findItem(R.id.action_search);
-    SearchView mSearchView = (SearchView) searchMenuItem.getActionView();
-    mSearchView.setOnQueryTextListener(listener);
+    searchView = (SearchView) searchMenuItem.getActionView();
+    searchView.setOnQueryTextListener(listener);
+    searchView.setOnQueryTextFocusChangeListener((v, hasFocus) -> {
+      if (!hasFocus) {
+        MenuItemCompat.collapseActionView(searchMenuItem);
+      }
+    });
+    MenuItemCompat.setOnActionExpandListener(searchMenuItem,
+      new MenuItemCompat.OnActionExpandListener() {
+        @Override
+        public boolean onMenuItemActionExpand(MenuItem item) {
+          photosView.setVisibility(View.INVISIBLE);
+          return true;
+        }
+
+        @Override
+        public boolean onMenuItemActionCollapse(MenuItem item) {
+          photosView.setVisibility(View.VISIBLE);
+          return true;
+        }
+      }
+    );
     return true;
   }
 
@@ -108,8 +136,7 @@ public class PhotoListActivity extends BaseActivity {
     Snackbar.make(contentView, R.string.photo_list_error, Snackbar.LENGTH_LONG).show();
   }
 
-  private void showDetail(Photo photo, View view
-  ) {
+  private void showDetail(Photo photo, View view) {
     startActivity(PhotoDetailActivity.getIntent(this, photo, view));
   }
 }

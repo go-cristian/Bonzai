@@ -30,6 +30,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import co.iyubinest.bonzai.R;
+import co.iyubinest.bonzai.photos.Photo;
 import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
@@ -42,8 +43,7 @@ public class PhotoListWidget extends RecyclerView {
     this(context, null);
   }
 
-  public PhotoListWidget(Context context, @Nullable AttributeSet attrs
-  ) {
+  public PhotoListWidget(Context context, @Nullable AttributeSet attrs) {
     super(context, attrs);
     LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
     setLayoutManager(layoutManager);
@@ -74,16 +74,14 @@ public class PhotoListWidget extends RecyclerView {
     }
 
     @Override
-    public PhotoHolder onCreateViewHolder(ViewGroup parent, int viewType
-    ) {
+    public PhotoHolder onCreateViewHolder(ViewGroup parent, int viewType) {
       View view =
         LayoutInflater.from(parent.getContext()).inflate(R.layout.photo_list_item, parent, false);
       return new PhotoHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(PhotoHolder holder, int position
-    ) {
+    public void onBindViewHolder(PhotoHolder holder, int position) {
       holder.load(photoList.get(position));
       holder.setListener((pos, view) -> {
         if (listener != null) {
@@ -103,8 +101,7 @@ public class PhotoListWidget extends RecyclerView {
 
     interface OnPhotoSelected {
 
-      void selectedPhoto(Photo photo, View view
-      );
+      void selectedPhoto(Photo photo, View view);
     }
   }
 
@@ -136,8 +133,7 @@ public class PhotoListWidget extends RecyclerView {
 
     interface OnSelection {
 
-      void positionSelected(int position, View view
-      );
+      void positionSelected(int position, View view);
     }
   }
 }
